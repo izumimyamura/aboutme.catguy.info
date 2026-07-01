@@ -1,0 +1,14 @@
+{
+  "name": "cat-guy-website",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
+    "ogl": "^1.0.0",
+    "motion": "^11.0.0"
+  }
+}
