@@ -1,22 +1,19 @@
 'use client';
-import { useRef, useEffect } from 'react';
-import { Renderer, Triangle, Program, Mesh } from 'ogl';
+import { useEffect, useRef } from 'react';
 import './SideRays.css';
 
-export default function SideRays({ speed = 2.5, rayColor1 = '#EAB308', rayColor2 = '#96c8ff', className = '' }: any) {
+export default function SideRays() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !containerRef.current) return;
-    
-    const renderer = new Renderer({ dpr: 2, alpha: true });
-    const gl = renderer.gl;
-    containerRef.current.appendChild(gl.canvas);
-    
-    // ... [Original WebGL logic continues here]
-
-    return () => { containerRef.current?.removeChild(gl.canvas); };
+    // Dynamically import OGL only when the component mounts in the browser
+    import('ogl').then((ogl) => {
+      const { Renderer } = ogl;
+      const renderer = new Renderer({ dpr: 2, alpha: true });
+      // ... your logic ...
+      containerRef.current?.appendChild(renderer.gl.canvas);
+    });
   }, []);
 
-  return <div ref={containerRef} className={`side-rays-container ${className}`} />;
+  return <div ref={containerRef} />;
 }
