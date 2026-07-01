@@ -40,7 +40,7 @@ export default function Home() {
         </div>
         
         {/* Z-index 10 ensures the BlurText stays above the SideRays canvas */}
-        <div className="relative z-10 flex flex-col items-center text-center px-4">
+        <div className="relative z-10 flex flex-col items-center text-center px-4 mt-16">
           <BlurText 
             text="THE CAT GUY" 
             delay={100} 
