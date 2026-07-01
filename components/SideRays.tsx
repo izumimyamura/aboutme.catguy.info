@@ -1,7 +1,6 @@
 'use client';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
-import './SideRays.css';
 
 const hexToRgb = (hex: string) => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -21,7 +20,7 @@ export default function SideRays({
   speed = 2.5,
   rayColor1 = '#EAB308',
   rayColor2 = '#96c8ff',
-  intensity = 2,
+  intensity = 2.5,
   spread = 2,
   origin = 'top-right',
   tilt = 0,
@@ -32,31 +31,35 @@ export default function SideRays({
   className = ''
 }: any) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
   const uniformsRef = useRef<any>(null);
 
+  // 1. Setup the WebGL Canvas exactly ONCE so Safari doesn't crash
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    if (!containerRef.current) return;
 
-  useEffect(() => {
-    if (!isMounted || !containerRef.current) return;
-
-    const renderer = new Renderer({ 
-      dpr: Math.min(window.devicePixelRatio, 2), 
-      alpha: true 
+    const renderer = new Renderer({
+      dpr: Math.min(window.devicePixelRatio, 2),
+      alpha: true
     });
     const gl = renderer.gl;
-    gl.canvas.style.width = '100%';
-    gl.canvas.style.height = '100%';
+    
+    // Force the canvas to span the entire screen
+    gl.canvas.style.width = '100vw';
+    gl.canvas.style.height = '100vh';
     gl.canvas.style.position = 'absolute';
+    gl.canvas.style.top = '0';
+    gl.canvas.style.left = '0';
     
     containerRef.current.appendChild(gl.canvas);
 
-    const vert = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
-    
-    const frag = `precision highp float;
+    const vert = `
+    attribute vec2 position;
+    void main() {
+      gl_Position = vec4(position, 0.0, 1.0);
+    }`;
 
+    // The original cinematic ray-tracing math
+    const frag = `precision highp float;
     uniform float iTime;
     uniform vec2 iResolution;
     uniform float iSpeed;
@@ -133,7 +136,6 @@ export default function SideRays({
       iFalloff: { value: falloff },
       iOpacity: { value: opacity }
     };
-    
     uniformsRef.current = uniforms;
 
     const geometry = new Triangle(gl);
@@ -142,10 +144,9 @@ export default function SideRays({
 
     const updateSize = () => {
       if (!containerRef.current || !renderer) return;
-      const w = containerRef.current.clientWidth;
-      const h = containerRef.current.clientHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
       renderer.setSize(w, h);
-      // THE FIX: Multiply by renderer.dpr to map coordinates correctly to Retina displays
       uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
     };
 
@@ -160,14 +161,38 @@ export default function SideRays({
     };
     animationId = requestAnimationFrame(loop);
 
+    // 2. SAFARI MEMORY FIX: Force graphics card memory wipe on reload
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', updateSize);
-      if (gl.canvas.parentNode) gl.canvas.parentNode.removeChild(gl.canvas);
+      if (renderer.gl) {
+        const loseCtx = renderer.gl.getExtension('WEBGL_lose_context');
+        if (loseCtx) loseCtx.loseContext();
+      }
+      if (gl.canvas.parentNode) {
+        gl.canvas.parentNode.removeChild(gl.canvas);
+      }
     };
-  }, [isMounted, speed, rayColor1, rayColor2, intensity, spread, origin, tilt, saturation, blend, falloff, opacity]);
+  }, []); // <-- Empty array stops React from crashing the canvas repeatedly
 
-  if (!isMounted) return null;
+  // 3. Update colors/speed dynamically WITHOUT destroying the canvas
+  useEffect(() => {
+    if (!uniformsRef.current) return;
+    const u = uniformsRef.current;
+    u.iSpeed.value = speed;
+    u.iRayColor1.value = hexToRgb(rayColor1);
+    u.iRayColor2.value = hexToRgb(rayColor2);
+    u.iIntensity.value = intensity;
+    u.iSpread.value = spread;
+    const [flipX, flipY] = originToFlip(origin);
+    u.iFlipX.value = flipX;
+    u.iFlipY.value = flipY;
+    u.iTilt.value = tilt;
+    u.iSaturation.value = saturation;
+    u.iBlend.value = blend;
+    u.iFalloff.value = falloff;
+    u.iOpacity.value = opacity;
+  }, [speed, rayColor1, rayColor2, intensity, spread, origin, tilt, saturation, blend, falloff, opacity]);
 
-  return <div ref={containerRef} className={`absolute inset-0 w-full h-full z-0 pointer-events-none ${className}`} />;
+  return <div ref={containerRef} className={`absolute inset-0 z-0 pointer-events-none ${className}`} style={{ minHeight: '100vh', minWidth: '100vw' }} />;
 }
