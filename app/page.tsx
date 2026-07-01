@@ -136,12 +136,14 @@ export default function Home() {
           </p>
         </div>
 
-        <ScrollStack useWindowScroll={true} itemDistance={100} blurAmount={2}>
+        {/* Removed blurAmount to prevent video glitching on scroll */}
+        <ScrollStack useWindowScroll={true} itemDistance={100} blurAmount={0}>
           
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
               <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel1.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                {/* Added hardware acceleration styles directly to video */}
+                <video src="/reel1.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>High-Velocity Hooks</h3>
@@ -150,10 +152,7 @@ export default function Home() {
                 </p>
                 <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
                   display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', 
-                  borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
                 }}>
                   View on Instagram ↗
                 </a>
@@ -164,7 +163,7 @@ export default function Home() {
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
               <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel2.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/reel2.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Cinematic Atmosphere</h3>
@@ -173,10 +172,7 @@ export default function Home() {
                 </p>
                 <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
                   display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', 
-                  borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
                 }}>
                   View on Instagram ↗
                 </a>
@@ -187,7 +183,7 @@ export default function Home() {
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
               <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel3.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/reel3.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Seamless Transitions</h3>
@@ -196,10 +192,7 @@ export default function Home() {
                 </p>
                 <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
                   display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', 
-                  borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
                 }}>
                   View on Instagram ↗
                 </a>
@@ -210,7 +203,7 @@ export default function Home() {
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
               <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel4.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/reel4.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Dynamic Sound Design</h3>
@@ -219,10 +212,7 @@ export default function Home() {
                 </p>
                 <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
                   display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', 
-                  borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
                 }}>
                   View on Instagram ↗
                 </a>
@@ -233,7 +223,7 @@ export default function Home() {
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
               <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel5.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/reel5.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Viral Pacing</h3>
@@ -242,10 +232,7 @@ export default function Home() {
                 </p>
                 <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
                   display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', 
-                  borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
                 }}>
                   View on Instagram ↗
                 </a>
