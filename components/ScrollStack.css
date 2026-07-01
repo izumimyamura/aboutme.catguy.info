@@ -1,21 +1,14 @@
 .scroll-stack-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px 0;
+  gap: 100px; /* Space between scroll triggers */
   width: 100%;
-  align-items: center;
 }
-
 .scroll-stack-card {
-  width: 80%;
-  max-width: 600px;
-  height: 300px;
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  background: #0a0a0a;
+  border-radius: 40px;
+  will-change: transform;
 }
