@@ -13,7 +13,7 @@ const originToFlip = (origin: string) => {
     case 'top-left': return [1, 0];
     case 'bottom-right': return [0, 1];
     case 'bottom-left': return [1, 1];
-    default: return [0, 0];
+    default: return [0, 0]; // top-right
   }
 };
 
@@ -42,7 +42,10 @@ export default function SideRays({
   useEffect(() => {
     if (!isMounted || !containerRef.current) return;
 
-    const renderer = new Renderer({ dpr: 2, alpha: true });
+    const renderer = new Renderer({ 
+      dpr: Math.min(window.devicePixelRatio, 2), 
+      alpha: true 
+    });
     const gl = renderer.gl;
     gl.canvas.style.width = '100%';
     gl.canvas.style.height = '100%';
@@ -52,7 +55,6 @@ export default function SideRays({
 
     const vert = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
     
-    // The original, complex ray-tracing shader logic
     const frag = `precision highp float;
 
     uniform float iTime;
@@ -139,9 +141,12 @@ export default function SideRays({
     const mesh = new Mesh(gl, { geometry, program });
 
     const updateSize = () => {
-      if (!containerRef.current) return;
-      renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
-      uniforms.iResolution.value = [containerRef.current.clientWidth, containerRef.current.clientHeight];
+      if (!containerRef.current || !renderer) return;
+      const w = containerRef.current.clientWidth;
+      const h = containerRef.current.clientHeight;
+      renderer.setSize(w, h);
+      // THE FIX: Multiply by renderer.dpr to map coordinates correctly to Retina displays
+      uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
     };
 
     window.addEventListener('resize', updateSize);
@@ -160,9 +165,9 @@ export default function SideRays({
       window.removeEventListener('resize', updateSize);
       if (gl.canvas.parentNode) gl.canvas.parentNode.removeChild(gl.canvas);
     };
-  }, [isMounted]);
+  }, [isMounted, speed, rayColor1, rayColor2, intensity, spread, origin, tilt, saturation, blend, falloff, opacity]);
 
   if (!isMounted) return null;
 
-  return <div ref={containerRef} className={`absolute inset-0 w-full h-full z-0 pointer-events-none ${className}`} style={{ minHeight: '100vh' }} />;
+  return <div ref={containerRef} className={`absolute inset-0 w-full h-full z-0 pointer-events-none ${className}`} />;
 }
