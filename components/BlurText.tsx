@@ -1,13 +1,10 @@
 'use client';
 import { motion } from 'framer-motion';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 export default function BlurText({ text = '', className = '' }: any) {
-  const [inView, setInView] = useState(false);
-  const ref = useRef(null);
-
   return (
-    <div ref={ref} className={className}>
+    <div className={className}>
       {text.split('').map((char: string, i: number) => (
         <motion.span 
           key={i} 
