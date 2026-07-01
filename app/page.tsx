@@ -8,48 +8,61 @@ const BlurText = dynamic(() => import('../components/BlurText'), { ssr: false })
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white font-sans relative overflow-hidden">
+    <main style={{ minHeight: '100vh', backgroundColor: '#000', color: '#fff', fontFamily: 'sans-serif', position: 'relative', overflow: 'hidden' }}>
       
-      {/* Apple-Style Glass Navigation */}
-      <nav className="fixed top-0 w-full z-50 flex items-center justify-between px-8 py-4 bg-black/40 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
-        <div className="text-xl font-bold tracking-widest text-white">THE CAT GUY</div>
-        <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-          <a href="#hero" className="hover:text-white transition">Home</a>
-          <Link href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" className="text-yellow-500 hover:text-yellow-400 transition">
+      {/* Bulletproof Apple-Style Glass Navigation */}
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '1rem 2rem', backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+      }}>
+        <div style={{ fontSize: '1.25rem', fontWeight: 'bold', letterSpacing: '0.1em' }}>
+          THE CAT GUY
+        </div>
+        <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem' }}>
+          <a href="#hero" style={{ color: '#ccc', textDecoration: 'none' }}>Home</a>
+          <Link href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" style={{ color: '#EAB308', textDecoration: 'none' }}>
             Portfolio ↗
           </Link>
         </div>
-        <a href="mailto:kavin123kavinl123@gmail.com" className="bg-white text-black px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition">
+        <a href="mailto:kavin123kavinl123@gmail.com" style={{
+          backgroundColor: '#fff', color: '#000', padding: '0.5rem 1rem',
+          borderRadius: '9999px', fontSize: '0.875rem', fontWeight: 'bold', textDecoration: 'none'
+        }}>
           Hire Me
         </a>
       </nav>
 
       {/* HERO SECTION */}
-      <section id="hero" className="relative w-full h-screen flex flex-col items-center justify-center">
+      <section id="hero" style={{ position: 'relative', width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         
-        {/* FIX: SideRays Wrapper given strict dimensions to force WebGL rendering */}
-        <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" style={{ minHeight: '100vh', minWidth: '100vw' }}>
+        {/* Z-Index 0: SideRays Canvas perfectly locked to the background */}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}>
           <SideRays 
-            speed={2.8} 
+            speed={2.5} 
             rayColor1="#EAB308" 
             rayColor2="#96c8ff" 
-            intensity={2.2} 
-            spread={1} 
+            intensity={2} 
+            spread={2} 
             origin="top-right" 
           />
         </div>
         
-        {/* Z-index 10 ensures the BlurText stays above the SideRays canvas */}
-        <div className="relative z-10 flex flex-col items-center text-center px-4 mt-16">
+        {/* Z-Index 10: Ensures BlurText stays above the light rays */}
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '0 1rem' }}>
           <BlurText 
             text="THE CAT GUY" 
             delay={100} 
-            className="text-7xl md:text-9xl font-black tracking-tighter drop-shadow-lg" 
+            className="text-7xl md:text-9xl font-black tracking-tighter" 
+            style={{ fontSize: '5rem', fontWeight: 900, letterSpacing: '-0.05em', textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
           />
           <BlurText 
             text="Cinematic Video Editor" 
             delay={150} 
-            className="text-xl md:text-3xl text-gray-400 mt-4 tracking-widest uppercase drop-shadow-md" 
+            className="text-xl md:text-3xl mt-4 tracking-widest uppercase" 
+            style={{ fontSize: '1.25rem', color: '#aaa', marginTop: '1rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}
           />
         </div>
       </section>
