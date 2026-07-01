@@ -1,7 +1,6 @@
 .scroll-stack-scroller {
   position: relative;
   width: 100%;
-  /* Removed overflow and height restrictions to prevent scroll trapping */
   will-change: scroll-position;
 }
 
@@ -16,9 +15,16 @@
 
 .scroll-stack-card {
   transform-origin: top center;
-  will-change: transform, filter;
+  /* Anti-Glitch Fixes Below */
+  will-change: transform; 
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -webkit-font-smoothing: antialiased;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  /* Standard Styles */
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   height: 60vh;
   min-height: 400px;
@@ -28,8 +34,6 @@
   border-radius: 40px;
   overflow: hidden;
   box-sizing: border-box;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   position: relative;
 }
 
