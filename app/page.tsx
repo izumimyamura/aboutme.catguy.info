@@ -1,6 +1,8 @@
 'use client';
 import dynamic from 'next/dynamic';
+import { ScrollStackItem } from '../components/ScrollStack';
 
+// Dynamic imports force Next.js to ignore these during server build
 const SideRays = dynamic(() => import('../components/SideRays'), { ssr: false });
 const ScrollFloat = dynamic(() => import('../components/ScrollFloat'), { ssr: false });
 const BlurText = dynamic(() => import('../components/BlurText'), { ssr: false });
@@ -9,18 +11,26 @@ const ScrollStack = dynamic(() => import('../components/ScrollStack'), { ssr: fa
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
-      <nav className="fixed top-0 z-50 flex w-full justify-between p-6 px-10">
+      <nav className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-black/50 p-6 px-10 backdrop-blur-md">
         <h1 className="text-xl font-bold">THE CAT GUY</h1>
+        <div className="space-x-6">
+          <a href="#hero" className="hover:text-yellow-500 transition-colors">Home</a>
+          <a href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" rel="noreferrer" className="hover:text-yellow-500 transition-colors">Portfolio</a>
+        </div>
       </nav>
 
-      <section id="hero" className="flex h-screen flex-col items-center justify-center">
+      <section id="hero" className="relative flex h-screen flex-col items-center justify-center overflow-hidden">
         <SideRays />
-        <BlurText text="THE CAT GUY" className="text-8xl font-black" />
+        <BlurText text="THE CAT GUY" className="z-10 text-8xl font-black text-center" />
       </section>
 
-      <section className="px-10 py-20">
+      <section className="px-10 py-20 relative z-10 bg-black">
         <ScrollFloat>Selected Work</ScrollFloat>
-        <ScrollStack />
+        <ScrollStack>
+          <ScrollStackItem><h3>Cinematic Chase</h3></ScrollStackItem>
+          <ScrollStackItem><h3>Viral Retention</h3></ScrollStackItem>
+          <ScrollStackItem><h3>Cyberpunk Promo</h3></ScrollStackItem>
+        </ScrollStack>
       </section>
     </main>
   );
