@@ -25,7 +25,7 @@ export default function Home() {
         </div>
         <div style={{ display: 'flex', gap: '3rem', fontSize: '0.9rem', fontWeight: 500 }}>
           <a href="#hero" style={{ color: '#e5e5e5', textDecoration: 'none', transition: 'color 0.2s' }}>Home</a>
-          <a href="#portfolio" style={{ color: '#e5e5e5', textDecoration: 'none', transition: 'color 0.2s' }}>Work</a>
+          <a href="#stack" style={{ color: '#e5e5e5', textDecoration: 'none', transition: 'color 0.2s' }}>My Stack</a>
           <Link href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" style={{ color: '#EAB308', textDecoration: 'none' }}>
             Portfolio ↗
           </Link>
@@ -74,62 +74,113 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SCROLL STACK PORTFOLIO SECTION */}
-      <section id="portfolio" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
+      {/* SCROLL STACK SOFTWARE SECTION */}
+      <section id="stack" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
         
         <ScrollStack useWindowScroll={false} itemDistance={80} blurAmount={2}>
           
-          {/* Card 1 */}
+          {/* Card 1: Adobe After Effects */}
           <ScrollStackItem>
             <div style={{
-              width: '100%', height: '100%', position: 'relative',
-              backgroundImage: 'url(https://images.unsplash.com/photo-1605335529061-68beaf5c92c8?q=80&w=1000)',
-              backgroundSize: 'cover', backgroundPosition: 'center',
-              display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '3rem'
+              width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505',
+              border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', 
+              justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center'
             }}>
-              {/* Gradient Overlay to make text readable */}
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }} />
+              {/* Purple Ambient Glow */}
+              <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(153, 153, 255, 0.15)', filter: 'blur(100px)', top: '20%' }} />
+              
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="After Effects" style={{ width: '120px', height: '120px', marginBottom: '2rem', zIndex: 10 }} />
               
               <div style={{ position: 'relative', zIndex: 10 }}>
-                <p style={{ color: '#EAB308', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Cinematic</p>
-                <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>The Midnight Chase</h2>
-                <p style={{ color: '#aaa', fontSize: '1.2rem', marginTop: '0.5rem' }}>High-energy color grading and heavy velocity framing shifts.</p>
+                <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>Adobe After Effects</h2>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', marginTop: '1rem', maxWidth: '700px', lineHeight: 1.6, marginInline: 'auto' }}>
+                  The industry-standard tool for creating complex motion graphics, visual effects, and animated text.
+                </p>
               </div>
             </div>
           </ScrollStackItem>
 
-          {/* Card 2 */}
+          {/* Card 2: DaVinci Resolve */}
           <ScrollStackItem>
             <div style={{
-              width: '100%', height: '100%', position: 'relative',
-              backgroundImage: 'url(https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000)',
-              backgroundSize: 'cover', backgroundPosition: 'center',
-              display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '3rem'
+              width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505',
+              border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', 
+              justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center'
             }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }} />
+              {/* Orange/Red Ambient Glow */}
+              <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(239, 68, 68, 0.15)', filter: 'blur(100px)', top: '20%' }} />
+              
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/DaVinci_Resolve_Studio.png" alt="DaVinci Resolve" style={{ width: '120px', height: '120px', marginBottom: '2rem', zIndex: 10 }} />
               
               <div style={{ position: 'relative', zIndex: 10 }}>
-                <p style={{ color: '#96c8ff', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Short-Form</p>
-                <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>Viral Retention Reel</h2>
-                <p style={{ color: '#aaa', fontSize: '1.2rem', marginTop: '0.5rem' }}>Micro-cut editing style keeping average watch time above 85%.</p>
+                <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>DaVinci Resolve</h2>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', marginTop: '1rem', maxWidth: '700px', lineHeight: 1.6, marginInline: 'auto' }}>
+                  A powerful, all-in-one software offering high-end color grading, audio mixing, and video editing in a single interface.
+                </p>
               </div>
             </div>
           </ScrollStackItem>
 
-          {/* Card 3 */}
+          {/* Card 3: Apple Motion */}
           <ScrollStackItem>
             <div style={{
-              width: '100%', height: '100%', position: 'relative',
-              backgroundImage: 'url(https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000)',
-              backgroundSize: 'cover', backgroundPosition: 'center',
-              display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '3rem'
+              width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505',
+              border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', 
+              justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center'
             }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }} />
+              {/* Blue Ambient Glow */}
+              <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(59, 130, 246, 0.15)', filter: 'blur(100px)', top: '20%' }} />
+              
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Apple_Motion_icon_2019.svg" alt="Apple Motion" style={{ width: '120px', height: '120px', marginBottom: '2rem', zIndex: 10 }} />
               
               <div style={{ position: 'relative', zIndex: 10 }}>
-                <p style={{ color: '#a855f7', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Commercial</p>
-                <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>Cyberpunk Promo</h2>
-                <p style={{ color: '#aaa', fontSize: '1.2rem', marginTop: '0.5rem' }}>Sound design matrix overlay synced with dynamic speed ramping.</p>
+                <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>Apple Motion</h2>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', marginTop: '1rem', maxWidth: '700px', lineHeight: 1.6, marginInline: 'auto' }}>
+                  A streamlined, Mac-only motion graphics application built to design templates and animations directly for Final Cut Pro.
+                </p>
+              </div>
+            </div>
+          </ScrollStackItem>
+
+          {/* Card 4: Adobe Premiere Pro */}
+          <ScrollStackItem>
+            <div style={{
+              width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505',
+              border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', 
+              justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center'
+            }}>
+              {/* Magenta Ambient Glow */}
+              <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(168, 85, 247, 0.15)', filter: 'blur(100px)', top: '20%' }} />
+              
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro" style={{ width: '120px', height: '120px', marginBottom: '2rem', zIndex: 10 }} />
+              
+              <div style={{ position: 'relative', zIndex: 10 }}>
+                <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>Adobe Premiere Pro</h2>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', marginTop: '1rem', maxWidth: '700px', lineHeight: 1.6, marginInline: 'auto' }}>
+                  The professional, flexible editing software of choice for television, film, and digital creators with a broad ecosystem of third-party plugins.
+                </p>
+              </div>
+            </div>
+          </ScrollStackItem>
+
+          {/* Card 5: CapCut */}
+          <ScrollStackItem>
+            <div style={{
+              width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505',
+              border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', 
+              justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center'
+            }}>
+              {/* White/Silver Ambient Glow */}
+              <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(255, 255, 255, 0.1)', filter: 'blur(100px)', top: '20%' }} />
+              
+              {/* Note: Wikipedia's CapCut logo link is sometimes blocked by hotlinking. If it breaks, download a CapCut logo PNG and place it in your 'public' folder, then change this src to '/capcut.png' */}
+              <img src="https://upload.wikimedia.org/wikipedia/en/b/b3/CapCut_logo.png" alt="CapCut" style={{ width: '120px', height: '120px', marginBottom: '2rem', zIndex: 10, objectFit: 'contain' }} />
+              
+              <div style={{ position: 'relative', zIndex: 10 }}>
+                <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.03em' }}>CapCut</h2>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', marginTop: '1rem', maxWidth: '700px', lineHeight: 1.6, marginInline: 'auto' }}>
+                  A highly accessible, user-friendly editor for mobile and desktop, packed with AI tools and templates for rapid social media content.
+                </p>
               </div>
             </div>
           </ScrollStackItem>
