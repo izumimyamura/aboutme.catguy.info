@@ -1,2 +1,20 @@
-.scroll-stack-container { width: 100%; overflow-y: auto; }
-.scroll-stack-card { height: 300px; background: #111; margin: 20px; border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+.scroll-stack-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+  width: 100%;
+  align-items: center;
+}
+.scroll-stack-card {
+  width: 80%;
+  max-width: 600px;
+  height: 300px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
