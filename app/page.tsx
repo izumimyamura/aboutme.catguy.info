@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
+// Safely load components
 const SideRays = dynamic(() => import('../components/SideRays'), { ssr: false });
 const BlurText = dynamic(() => import('../components/BlurText'), { ssr: false });
 const ScrollStack = dynamic(() => import('../components/ScrollStack'), { ssr: false });
@@ -55,8 +56,9 @@ export default function Home() {
       </section>
 
       {/* SOFTWARE SCROLL STACK */}
+      {/* Notice: blurAmount={0} stops the GPU from tearing the text, making it butter smooth! */}
       <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
-        <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
+        <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={0}>
           
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #1a0b2e 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
@@ -168,72 +170,68 @@ export default function Home() {
           </div>
 
           <div className="split-cards" style={{ flex: '1 1 700px', display: 'flex', justifyContent: 'center', position: 'relative', height: '600px' }}>
-            <CardSwap width={700} height={450} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="power1.inOut">
-              
-              {/* NOTE: Change the src tags below to point to your actual local files inside your public folder */}
-              
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  {/* Replaced Unsplash with local link. Drop photo1.jpg into public/ */}
-                  <img src="/photo1.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
-                  
-                  {/* Fallback box shown until you add the photo */}
-                  <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
-                     <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo1.jpg in public folder]</p>
+            {/* The translateX(-10%) keeps the huge cards perfectly in frame! */}
+            <div style={{ position: 'relative', transform: 'translateX(-10%)' }}>
+              <CardSwap width={650} height={420} cardDistance={50} verticalDistance={60} delay={3000} skewAmount={6} easing="power1.inOut">
+                
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                    <img src="/photo1.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
+                    
+                    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
+                       <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo1.jpg in public folder]</p>
+                    </div>
+
+                    <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '1.1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Reliable</span>
+                    </div>
                   </div>
+                </Card>
 
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1.1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Reliable</span>
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                    <img src="/photo2.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
+                    
+                    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
+                       <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo2.jpg in public folder]</p>
+                    </div>
+
+                    <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Smooth</span>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
 
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  {/* Replaced Unsplash with local link. Drop photo2.jpg into public/ */}
-                  <img src="/photo2.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
-                  
-                  <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
-                     <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo2.jpg in public folder]</p>
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                    <img src="/photo3.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
+
+                    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
+                       <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo3.jpg in public folder]</p>
+                    </div>
+
+                    <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '1.1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Customizable</span>
+                    </div>
                   </div>
+                </Card>
 
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Smooth</span>
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                    <img src="/photo4.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 4" />
+
+                    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
+                       <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo4.jpg in public folder]</p>
+                    </div>
+
+                    <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '1.1rem', color: '#EAB308' }}>✦</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Cinematic</span>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
 
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  {/* Replaced Unsplash with local link. Drop photo3.jpg into public/ */}
-                  <img src="/photo3.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
-
-                  <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
-                     <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo3.jpg in public folder]</p>
-                  </div>
-
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1.1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Customizable</span>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  {/* Replaced Unsplash with local link. Drop photo4.jpg into public/ */}
-                  <img src="/photo4.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 4" />
-
-                  <div style={{ position: 'absolute', inset: 0, backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: -1 }}>
-                     <p style={{ color: '#555', fontWeight: 600 }}>[Drop photo4.jpg in public folder]</p>
-                  </div>
-
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1.1rem', color: '#EAB308' }}>✦</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Cinematic</span>
-                  </div>
-                </div>
-              </Card>
-
-            </CardSwap>
+              </CardSwap>
+            </div>
           </div>
 
         </div>
