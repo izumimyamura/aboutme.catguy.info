@@ -36,11 +36,11 @@ const ScrollStack = ({
     return (scrollTop - start) / (end - start);
   }, []);
 
-  const parsePercentage = useCallback((value: any, containerHeight: number) => {
+  const parsePercentage = useCallback((value: string | number, containerHeight: number) => {
     if (typeof value === 'string' && value.includes('%')) {
       return (parseFloat(value) / 100) * containerHeight;
     }
-    return parseFloat(value);
+    return parseFloat(value as string);
   }, []);
 
   const getScrollData = useCallback(() => {
@@ -165,19 +165,9 @@ const ScrollStack = ({
 
     isUpdatingRef.current = false;
   }, [
-    itemScale,
-    itemStackDistance,
-    stackPosition,
-    scaleEndPosition,
-    baseScale,
-    rotationAmount,
-    blurAmount,
-    useWindowScroll,
-    onStackComplete,
-    calculateProgress,
-    parsePercentage,
-    getScrollData,
-    getElementOffset
+    itemScale, itemStackDistance, stackPosition, scaleEndPosition, baseScale,
+    rotationAmount, blurAmount, useWindowScroll, onStackComplete,
+    calculateProgress, parsePercentage, getScrollData, getElementOffset
   ]);
 
   const handleScroll = useCallback(() => {
@@ -186,56 +176,19 @@ const ScrollStack = ({
 
   const setupLenis = useCallback(() => {
     if (useWindowScroll) {
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        infinite: false,
-        wheelMultiplier: 1,
-        lerp: 0.1,
-        syncTouch: true,
-        syncTouchLerp: 0.075
-      });
-
+      const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, touchMultiplier: 2, infinite: false, wheelMultiplier: 1, lerp: 0.1, syncTouch: true, syncTouchLerp: 0.075 });
       lenis.on('scroll', handleScroll);
-
-      const raf = (time: number) => {
-        lenis.raf(time);
-        animationFrameRef.current = requestAnimationFrame(raf);
-      };
+      const raf = (time: number) => { lenis.raf(time); animationFrameRef.current = requestAnimationFrame(raf); };
       animationFrameRef.current = requestAnimationFrame(raf);
-
       lenisRef.current = lenis;
       return lenis;
     } else {
       const scroller = scrollerRef.current;
       if (!scroller) return;
-
-      const lenis = new Lenis({
-        wrapper: scroller,
-        content: scroller.querySelector('.scroll-stack-inner') as HTMLElement,
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        infinite: false,
-        gestureOrientationHandler: true,
-        normalizeWheel: true,
-        wheelMultiplier: 1,
-        touchInertiaMultiplier: 35,
-        lerp: 0.1,
-        syncTouch: true,
-        syncTouchLerp: 0.075,
-        touchInertia: 0.6
-      });
-
+      const lenis = new Lenis({ wrapper: scroller, content: scroller.querySelector('.scroll-stack-inner') as HTMLElement, duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, touchMultiplier: 2, infinite: false, gestureOrientationHandler: true, normalizeWheel: true, wheelMultiplier: 1, touchInertiaMultiplier: 35, lerp: 0.1, syncTouch: true, syncTouchLerp: 0.075, touchInertia: 0.6 });
       lenis.on('scroll', handleScroll);
-
-      const raf = (time: number) => {
-        lenis.raf(time);
-        animationFrameRef.current = requestAnimationFrame(raf);
-      };
+      const raf = (time: number) => { lenis.raf(time); animationFrameRef.current = requestAnimationFrame(raf); };
       animationFrameRef.current = requestAnimationFrame(raf);
-
       lenisRef.current = lenis;
       return lenis;
     }
@@ -244,20 +197,12 @@ const ScrollStack = ({
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
-
-    const cards = Array.from(
-      useWindowScroll
-        ? document.querySelectorAll('.scroll-stack-card')
-        : scroller.querySelectorAll('.scroll-stack-card')
-    );
-
+    const cards = Array.from(useWindowScroll ? document.querySelectorAll('.scroll-stack-card') : scroller.querySelectorAll('.scroll-stack-card'));
     cardsRef.current = cards;
     const transformsCache = lastTransformsRef.current;
 
     cards.forEach((card: any, i) => {
-      if (i < cards.length - 1) {
-        card.style.marginBottom = `${itemDistance}px`;
-      }
+      if (i < cards.length - 1) { card.style.marginBottom = `${itemDistance}px`; }
       card.style.willChange = 'transform, filter';
       card.style.transformOrigin = 'top center';
       card.style.backfaceVisibility = 'hidden';
@@ -271,38 +216,19 @@ const ScrollStack = ({
     updateCardTransforms();
 
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
-      }
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+      if (lenisRef.current) lenisRef.current.destroy();
       stackCompletedRef.current = false;
       cardsRef.current = [];
       transformsCache.clear();
       isUpdatingRef.current = false;
     };
-  }, [
-    itemDistance,
-    itemScale,
-    itemStackDistance,
-    stackPosition,
-    scaleEndPosition,
-    baseScale,
-    scaleDuration,
-    rotationAmount,
-    blurAmount,
-    useWindowScroll,
-    onStackComplete,
-    setupLenis,
-    updateCardTransforms
-  ]);
+  }, [itemDistance, itemScale, itemStackDistance, stackPosition, scaleEndPosition, baseScale, scaleDuration, rotationAmount, blurAmount, useWindowScroll, onStackComplete, setupLenis, updateCardTransforms]);
 
   return (
     <div className={`scroll-stack-scroller ${className}`.trim()} ref={scrollerRef}>
       <div className="scroll-stack-inner">
         {children}
-        {/* Spacer so the last pin can release cleanly */}
         <div className="scroll-stack-end" />
       </div>
     </div>
