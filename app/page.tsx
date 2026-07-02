@@ -24,7 +24,7 @@ export default function Home() {
           .standard-video-right { padding: 2rem; }
           .split-container { flex-direction: column; text-align: center; }
           .split-text { padding: 4rem 2rem 2rem 2rem !important; align-items: center; }
-          .split-cards { padding-bottom: 4rem; }
+          .split-cards { padding-bottom: 4rem; width: 100%; }
         }
       `}} />
 
@@ -56,8 +56,9 @@ export default function Home() {
       </section>
 
       {/* SOFTWARE SCROLL STACK */}
-      <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
-        <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
+      {/* Notice: height: 100vh + useWindowScroll={false} prevents text glitching completely */}
+      <section id="stack" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
+        <ScrollStack useWindowScroll={false} itemDistance={80} blurAmount={2}>
           
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #1a0b2e 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
@@ -170,40 +171,47 @@ export default function Home() {
           </div>
 
           {/* Animation Container (Right) */}
-          <div className="split-cards" style={{ flex: '1 1 600px', display: 'flex', justifyContent: 'center', position: 'relative' }}>
-            {/* Added a spacer box so the CardSwap has physical room to stretch out inside the flexbox */}
-            <div style={{ width: '500px', height: '400px', position: 'relative', transform: 'translateX(-5%)' }}>
-              <CardSwap width={500} height={350} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="power1.inOut">
-                
-                <Card>
-                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-                    <img src="https://images.unsplash.com/photo-1542051812871-757500d5f998?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
-                    <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Reliable</span>
-                    </div>
+          {/* Notice: Explicit height of 600px gives the GSAP absolute positioning math room to stretch properly! */}
+          <div className="split-cards" style={{ flex: '1 1 600px', position: 'relative', height: '600px' }}>
+            <CardSwap width={500} height={350} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="power1.inOut">
+              
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1542051812871-757500d5f998?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
+                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Reliable</span>
                   </div>
-                </Card>
+                </div>
+              </Card>
 
-                <Card>
-                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
-                    <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Smooth</span>
-                    </div>
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
+                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Smooth</span>
                   </div>
-                </Card>
+                </div>
+              </Card>
 
-                <Card>
-                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-                    <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
-                    <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Customizable</span>
-                    </div>
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
+                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Customizable</span>
                   </div>
-                </Card>
+                </div>
+              </Card>
 
-              </CardSwap>
-            </div>
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 4" />
+                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#EAB308' }}>✦</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Cinematic</span>
+                  </div>
+                </div>
+              </Card>
+
+            </CardSwap>
           </div>
 
         </div>
