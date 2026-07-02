@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-// Safely load 3D/Animation components
+// Safely load components
 const SideRays = dynamic(() => import('../components/SideRays'), { ssr: false });
 const BlurText = dynamic(() => import('../components/BlurText'), { ssr: false });
 const ScrollStack = dynamic(() => import('../components/ScrollStack'), { ssr: false });
@@ -22,9 +22,9 @@ export default function Home() {
           .standard-video-card { flex-direction: column; border-radius: 24px; }
           .standard-video-left { flex: 0 0 400px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
           .standard-video-right { padding: 2rem; }
-          .split-container { flex-direction: column; }
-          .split-text { padding-top: 4rem !important; align-items: center; text-align: center; padding-left: 2rem !important; padding-right: 2rem !important; }
-          .split-cards { padding-top: 4rem; padding-bottom: 4rem; }
+          .split-container { flex-direction: column; text-align: center; }
+          .split-text { padding: 4rem 2rem 2rem 2rem !important; align-items: center; }
+          .split-cards { padding-bottom: 4rem; }
         }
       `}} />
 
@@ -55,10 +55,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SOFTWARE SCROLL STACK SECTION */}
-      {/* REQUIRED: height: 100vh forces the stack into a scrolling box so the text doesn't glitch! */}
-      <section id="stack" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
-        <ScrollStack useWindowScroll={false} itemDistance={80} blurAmount={2}>
+      {/* SOFTWARE SCROLL STACK */}
+      {/* Notice: height: 100vh is REMOVED, useWindowScroll=true allows natural scrolling down! */}
+      <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
+        <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
           
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #1a0b2e 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
@@ -116,7 +116,7 @@ export default function Home() {
         </ScrollStack>
       </section>
 
-      {/* STANDARD SCROLLING REELS */}
+      {/* STANDARD SCROLLING REELS SECTION */}
       <section id="projects" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingTop: '15vh', paddingBottom: '15vh' }}>
         <div style={{ textAlign: 'center', paddingBottom: '8vh' }}>
           <h2 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 900, letterSpacing: '-0.04em', margin: 0 }}>Some of my projects.</h2>
@@ -161,7 +161,7 @@ export default function Home() {
         <div className="split-container" style={{ display: 'flex', width: '100%', height: '100%', minHeight: '800px' }}>
           
           {/* Text Container (Left) */}
-          <div className="split-text" style={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '8vw', zIndex: 30 }}>
+          <div className="split-text" style={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10vw', zIndex: 30 }}>
             <h2 style={{ fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, maxWidth: '600px', lineHeight: 1.1 }}>
               Card stacks have never looked so good
             </h2>
@@ -170,44 +170,41 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Animation Container (Right) - Perfectly Centered, No Edge Bleed */}
+          {/* Animation Container (Right) */}
           <div className="split-cards" style={{ flex: '1', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <CardSwap width={450} height={300} delay={4000} cardDistance={45} verticalDistance={50} pauseOnHover={false} skewAmount={8} easing="elastic">
+            <CardSwap width={500} height={350} delay={4000} cardDistance={50} verticalDistance={30} pauseOnHover={false} skewAmount={6} easing="power1.inOut">
               
-              {/* Photo Card 1 */}
               <Card>
                 <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {/* Highly reliable image links so they don't break! */}
+                  <img src="https://images.unsplash.com/photo-1542051812871-757500d5f998?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
                   <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '0.9rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Reliable</span>
                   </div>
                 </div>
               </Card>
 
-              {/* Photo Card 2 */}
               <Card>
                 <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
                   <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Smooth</span>
                   </div>
                 </div>
               </Card>
 
-              {/* Photo Card 3 */}
               <Card>
                 <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
                   <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '0.9rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Customizable</span>
                   </div>
                 </div>
               </Card>
 
-              {/* Photo Card 4 (Creates Depth!) */}
               <Card>
                 <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1605335529061-68beaf5c92c8?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 4" />
                   <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '0.9rem', color: '#EAB308' }}>✦</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Cinematic</span>
                   </div>
