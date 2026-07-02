@@ -29,15 +29,15 @@ const placeNow = (el: any, slot: any, skew: number) =>
   });
 
 const CardSwap = ({
-  width = 600,
-  height = 400,
+  width = 500,
+  height = 350,
   cardDistance = 60,
   verticalDistance = 70,
   delay = 4000,
   pauseOnHover = false,
   onCardClick,
   skewAmount = 6,
-  easing = 'elastic',
+  easing = 'power1.inOut',
   children
 }: any) => {
   const config =
@@ -49,59 +49,58 @@ const CardSwap = ({
   const refs = useMemo(() => childArr.map(() => React.createRef<HTMLDivElement>()), [childArr.length]);
   const order = useRef(Array.from({ length: childArr.length }, (_, i) => i));
 
-  const tlRef = useRef<any>(null);
   const intervalRef = useRef<any>();
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const total = refs.length;
-    refs.forEach((r, i) => placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
+    if (total === 0) return;
 
-    const swap = () => {
-      if (order.current.length < 2) return;
-
-      const [front, ...rest] = order.current;
-      const elFront = refs[front].current;
-      const tl = gsap.timeline();
-      tlRef.current = tl;
-
-      tl.to(elFront, { y: '+=500', duration: config.durDrop, ease: config.ease });
-      tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
-      rest.forEach((idx, i) => {
-        const el = refs[idx].current;
-        const slot = makeSlot(i, cardDistance, verticalDistance, refs.length);
-        tl.set(el, { zIndex: slot.zIndex }, 'promote');
-        tl.to(el, { x: slot.x, y: slot.y, z: slot.z, duration: config.durMove, ease: config.ease }, `promote+=${i * 0.15}`);
+    // CRITICAL FIX: Wrap in gsap.context to prevent React double-mount freezing
+    let ctx = gsap.context(() => {
+      refs.forEach((r, i) => {
+        if (r.current) placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
       });
 
-      const backSlot = makeSlot(refs.length - 1, cardDistance, verticalDistance, refs.length);
-      tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
-      tl.call(() => { gsap.set(elFront, { zIndex: backSlot.zIndex }); }, undefined, 'return');
-      tl.to(elFront, { x: backSlot.x, y: backSlot.y, z: backSlot.z, duration: config.durReturn, ease: config.ease }, 'return');
-      tl.call(() => { order.current = [...rest, front]; });
-    };
+      const swap = () => {
+        if (order.current.length < 2) return;
+        const [front, ...rest] = order.current;
+        const elFront = refs[front].current;
+        if (!elFront) return;
 
-    swap(); // Call immediately so the first animation triggers
-    intervalRef.current = window.setInterval(swap, delay);
+        const tl = gsap.timeline();
+        tl.to(elFront, { y: '+=500', duration: config.durDrop, ease: config.ease });
+        tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+        
+        rest.forEach((idx, i) => {
+          const el = refs[idx].current;
+          if (!el) return;
+          const slot = makeSlot(i, cardDistance, verticalDistance, refs.length);
+          tl.set(el, { zIndex: slot.zIndex }, 'promote');
+          tl.to(el, { x: slot.x, y: slot.y, z: slot.z, duration: config.durMove, ease: config.ease }, `promote+=${i * 0.15}`);
+        });
 
-    if (pauseOnHover) {
-      const node = container.current;
-      if (!node) return;
-      const pause = () => { tlRef.current?.pause(); clearInterval(intervalRef.current); };
-      const resume = () => { tlRef.current?.play(); intervalRef.current = window.setInterval(swap, delay); };
-      node.addEventListener('mouseenter', pause);
-      node.addEventListener('mouseleave', resume);
-      return () => {
-        node.removeEventListener('mouseenter', pause);
-        node.removeEventListener('mouseleave', resume);
-        clearInterval(intervalRef.current);
-        tlRef.current?.kill(); // CRITICAL FIX: Kills GSAP on remount
+        const backSlot = makeSlot(refs.length - 1, cardDistance, verticalDistance, refs.length);
+        tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
+        tl.call(() => { gsap.set(elFront, { zIndex: backSlot.zIndex }); }, undefined, 'return');
+        tl.to(elFront, { x: backSlot.x, y: backSlot.y, z: backSlot.z, duration: config.durReturn, ease: config.ease }, 'return');
+        tl.call(() => { order.current = [...rest, front]; });
       };
-    }
-    
+
+      intervalRef.current = window.setInterval(swap, delay);
+
+      if (pauseOnHover && container.current) {
+        const pause = () => { gsap.globalTimeline.pause(); clearInterval(intervalRef.current); };
+        const resume = () => { gsap.globalTimeline.play(); intervalRef.current = window.setInterval(swap, delay); };
+        container.current.addEventListener('mouseenter', pause);
+        container.current.addEventListener('mouseleave', resume);
+      }
+    }, container);
+
+    // CRITICAL FIX: Revert the context on unmount so animations don't duplicate
     return () => {
       clearInterval(intervalRef.current);
-      tlRef.current?.kill(); // CRITICAL FIX: Kills GSAP on remount
+      ctx.revert();
     };
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
 
