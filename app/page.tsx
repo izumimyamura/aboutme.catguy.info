@@ -22,8 +22,9 @@ export default function Home() {
           .standard-video-card { flex-direction: column; border-radius: 24px; }
           .standard-video-left { flex: 0 0 400px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
           .standard-video-right { padding: 2rem; }
-          .photos-flex { flex-direction: column !important; }
-          .photos-text { padding: 4rem 2rem 0 2rem !important; text-align: center; }
+          .split-container { flex-direction: column; text-align: center; }
+          .split-text { padding: 4rem 2rem 2rem 2rem !important; align-items: center; }
+          .split-cards { padding-bottom: 4rem; }
         }
       `}} />
 
@@ -154,13 +155,12 @@ export default function Home() {
       </section>
 
       {/* SKEWED CARD SWAP FOR PHOTOS */}
-      {/* Notice: No overflow hidden here, letting the cards dynamically extend exactly like the demo */}
-      <section id="photos" style={{ width: '100vw', backgroundColor: '#050505', position: 'relative', zIndex: 20, borderTop: '1px solid rgba(255,255,255,0.05)', padding: '10vh 0 20vh 0' }}>
+      <section id="photos" style={{ width: '100vw', backgroundColor: '#050505', position: 'relative', zIndex: 20, borderTop: '1px solid rgba(255,255,255,0.05)', padding: '15vh 0' }}>
         
-        <div className="photos-flex" style={{ display: 'flex', width: '100%', maxWidth: '1400px', margin: '0 auto', alignItems: 'center' }}>
+        <div className="split-container" style={{ display: 'flex', width: '100%', maxWidth: '1400px', margin: '0 auto', alignItems: 'center' }}>
           
           {/* Text Container (Left) */}
-          <div className="photos-text" style={{ flex: '1 1 400px', paddingLeft: '5vw', zIndex: 30 }}>
+          <div className="split-text" style={{ flex: '1 1 400px', paddingLeft: '5vw', zIndex: 30 }}>
             <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, lineHeight: 1.1 }}>
               Card stacks have never looked so good
             </h2>
@@ -170,38 +170,40 @@ export default function Home() {
           </div>
 
           {/* Animation Container (Right) */}
-          {/* This exact setup provides the perfect bounding box for the absolute CSS math to work beautifully */}
-          <div style={{ flex: '1 1 600px', height: '600px', position: 'relative' }}>
-            <CardSwap width={600} height={400} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="elastic">
-              
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1542051812871-757500d5f998?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Reliable</span>
+          <div className="split-cards" style={{ flex: '1 1 600px', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+            {/* Added a spacer box so the CardSwap has physical room to stretch out inside the flexbox */}
+            <div style={{ width: '500px', height: '400px', position: 'relative', transform: 'translateX(-5%)' }}>
+              <CardSwap width={500} height={350} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="power1.inOut">
+                
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                    <img src="https://images.unsplash.com/photo-1542051812871-757500d5f998?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
+                    <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Reliable</span>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
 
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Smooth</span>
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
+                    <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Smooth</span>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
 
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Customizable</span>
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                    <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
+                    <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Customizable</span>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
 
-            </CardSwap>
+              </CardSwap>
+            </div>
           </div>
 
         </div>
