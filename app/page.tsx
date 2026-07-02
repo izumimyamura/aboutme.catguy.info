@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-// Safely load components
+// Safely load 3D/Animation components
 const SideRays = dynamic(() => import('../components/SideRays'), { ssr: false });
 const BlurText = dynamic(() => import('../components/BlurText'), { ssr: false });
 const ScrollStack = dynamic(() => import('../components/ScrollStack'), { ssr: false });
@@ -56,9 +56,9 @@ export default function Home() {
       </section>
 
       {/* SOFTWARE SCROLL STACK */}
-      {/* Notice: height: 100vh + useWindowScroll={false} prevents text glitching completely */}
-      <section id="stack" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
-        <ScrollStack useWindowScroll={false} itemDistance={80} blurAmount={2}>
+      {/* Notice: height: '100vh' is REMOVED so the container can stretch naturally, preventing the crushed card bug! */}
+      <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
+        <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
           
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #1a0b2e 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
@@ -160,7 +160,6 @@ export default function Home() {
         
         <div className="split-container" style={{ display: 'flex', width: '100%', maxWidth: '1400px', margin: '0 auto', alignItems: 'center' }}>
           
-          {/* Text Container (Left) */}
           <div className="split-text" style={{ flex: '1 1 400px', paddingLeft: '5vw', zIndex: 30 }}>
             <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, lineHeight: 1.1 }}>
               Card stacks have never looked so good
@@ -170,43 +169,34 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Animation Container (Right) */}
-          {/* Notice: Explicit height of 600px gives the GSAP absolute positioning math room to stretch properly! */}
-          <div className="split-cards" style={{ flex: '1 1 600px', position: 'relative', height: '600px' }}>
-            <CardSwap width={500} height={350} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="power1.inOut">
+          {/* MASSIVELY ENLARGED PHOTO CARDS */}
+          {/* Changed width to 700 and height to 450 to make the photos huge and impactful! */}
+          <div className="split-cards" style={{ flex: '1 1 700px', display: 'flex', justifyContent: 'center', position: 'relative', height: '600px' }}>
+            <CardSwap width={700} height={450} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="power1.inOut">
               
               <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
                   <img src="https://images.unsplash.com/photo-1542051812871-757500d5f998?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 1" />
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Reliable</span>
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '1.1rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Reliable</span>
                   </div>
                 </div>
               </Card>
 
               <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
                   <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 2" />
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Smooth</span>
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Smooth</span>
                   </div>
                 </div>
               </Card>
 
               <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
                   <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 3" />
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Customizable</span>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-                  <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Photo 4" />
-                  <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '0.9rem', color: '#EAB308' }}>✦</span><span style={{ fontSize: '0.9rem', color: '#e5e5e5' }}>Cinematic</span>
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '1.1rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '1rem', color: '#e5e5e5' }}>Customizable</span>
                   </div>
                 </div>
               </Card>
