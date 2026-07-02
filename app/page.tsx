@@ -28,7 +28,7 @@ export default function Home() {
         }
       `}} />
 
-      {/* Navigation */}
+      {/* Navigation - Added Portfolio Link! */}
       <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.2rem 2.5rem', backgroundColor: 'rgba(0, 0, 0, 0.4)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
         <div style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '0.15em' }}>THE CAT GUY</div>
         <div style={{ display: 'flex', gap: '3rem', fontSize: '0.9rem', fontWeight: 500 }}>
@@ -36,6 +36,7 @@ export default function Home() {
           <a href="#stack" style={{ color: '#e5e5e5', textDecoration: 'none' }}>My Stack</a>
           <a href="#projects" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Projects</a>
           <a href="#photos" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Photography</a>
+          <Link href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" style={{ color: '#EAB308', textDecoration: 'none' }}>Portfolio ↗</Link>
         </div>
         <a href="mailto:kavin123kavinl123@gmail.com" style={{ backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '9999px', fontSize: '0.9rem', fontWeight: 700, textDecoration: 'none' }}>Hire Me</a>
       </nav>
@@ -56,7 +57,6 @@ export default function Home() {
       </section>
 
       {/* SOFTWARE SCROLL STACK */}
-      {/* Notice: blurAmount={0} stops the GPU from tearing the text, making it butter smooth! */}
       <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
         <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={0}>
           
@@ -170,9 +170,8 @@ export default function Home() {
           </div>
 
           <div className="split-cards" style={{ flex: '1 1 700px', display: 'flex', justifyContent: 'center', position: 'relative', height: '600px' }}>
-            {/* The translateX(-10%) keeps the huge cards perfectly in frame! */}
             <div style={{ position: 'relative', transform: 'translateX(-10%)' }}>
-              <CardSwap width={650} height={420} cardDistance={50} verticalDistance={60} delay={3000} skewAmount={6} easing="power1.inOut">
+              <CardSwap width={700} height={450} cardDistance={60} verticalDistance={70} delay={3000} skewAmount={6} easing="power1.inOut">
                 
                 <Card>
                   <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
