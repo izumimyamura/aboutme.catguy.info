@@ -29,29 +29,40 @@ const placeNow = (el: any, slot: any, skew: number) =>
   });
 
 const CardSwap = ({
-  width = 800,
-  height = 450,
+  width = 500,
+  height = 400,
   cardDistance = 60,
   verticalDistance = 70,
   delay = 5000,
-  pauseOnHover = true,
+  pauseOnHover = false,
   onCardClick,
-  skewAmount = 0, // Set to 0 for a cleaner, cinematic look
-  easing = 'power1.inOut',
+  skewAmount = 6,
+  easing = 'elastic',
   children
 }: any) => {
-  const config = {
-    ease: 'power1.inOut',
-    durDrop: 0.8,
-    durMove: 0.8,
-    durReturn: 0.8,
-    promoteOverlap: 0.45,
-    returnDelay: 0.2
-  };
+  const config =
+    easing === 'elastic'
+      ? {
+          ease: 'elastic.out(0.6,0.9)',
+          durDrop: 2,
+          durMove: 2,
+          durReturn: 2,
+          promoteOverlap: 0.9,
+          returnDelay: 0.05
+        }
+      : {
+          ease: 'power1.inOut',
+          durDrop: 0.8,
+          durMove: 0.8,
+          durReturn: 0.8,
+          promoteOverlap: 0.45,
+          returnDelay: 0.2
+        };
 
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(() => childArr.map(() => React.createRef<HTMLDivElement>()), [childArr.length]);
   const order = useRef(Array.from({ length: childArr.length }, (_, i) => i));
+
   const tlRef = useRef<any>(null);
   const intervalRef = useRef<any>();
   const container = useRef<HTMLDivElement>(null);
@@ -68,7 +79,7 @@ const CardSwap = ({
       const tl = gsap.timeline();
       tlRef.current = tl;
 
-      tl.to(elFront, { y: '+=300', duration: config.durDrop, ease: config.ease });
+      tl.to(elFront, { y: '+=500', duration: config.durDrop, ease: config.ease });
       tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
       
       rest.forEach((idx, i) => {
@@ -85,6 +96,7 @@ const CardSwap = ({
       tl.call(() => { order.current = [...rest, front]; });
     };
 
+    swap();
     intervalRef.current = window.setInterval(swap, delay);
 
     if (pauseOnHover) {
@@ -111,7 +123,7 @@ const CardSwap = ({
           style: { width, height, ...(child.props.style ?? {}) },
           onClick: (e: any) => {
             child.props.onClick?.(e);
-            if (onCardClick) onCardClick(i);
+            onCardClick?.(i);
           }
         } as any)
       : child
