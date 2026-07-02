@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#000', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif', position: 'relative', overflowX: 'hidden' }}>
       
-      {/* Inline styles for standard video cards */}
       <style dangerouslySetInnerHTML={{__html: `
         .standard-video-card { display: flex; flex-direction: row; width: 100%; max-width: 1200px; margin: 0 auto; background-color: #050505; border: 1px solid rgba(255,255,255,0.08); border-radius: 40px; overflow: hidden; margin-bottom: 4rem; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
         .standard-video-left { flex: 0 0 45%; position: relative; border-right: 1px solid rgba(255,255,255,0.08); }
@@ -24,7 +23,8 @@ export default function Home() {
           .standard-video-left { flex: 0 0 400px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
           .standard-video-right { padding: 2rem; }
           .split-container { flex-direction: column; }
-          .split-text { padding-top: 4rem !important; align-items: center; text-align: center; }
+          .split-text { padding-top: 4rem !important; align-items: center; text-align: center; padding-left: 2rem !important; padding-right: 2rem !important; }
+          .split-cards { padding-top: 4rem; padding-bottom: 4rem; }
         }
       `}} />
 
@@ -55,9 +55,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SOFTWARE SCROLL STACK */}
-      <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
-        <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
+      {/* SOFTWARE SCROLL STACK SECTION */}
+      {/* REQUIRED: height: 100vh forces the stack into a scrolling box so the text doesn't glitch! */}
+      <section id="stack" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
+        <ScrollStack useWindowScroll={false} itemDistance={80} blurAmount={2}>
           
           <ScrollStackItem>
             <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #1a0b2e 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
@@ -154,7 +155,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEW: SKEWED CARD SWAP FOR PHOTOS */}
+      {/* SKEWED CARD SWAP FOR PHOTOS */}
       <section id="photos" style={{ width: '100vw', minHeight: '800px', backgroundColor: '#070707', position: 'relative', zIndex: 20, borderTop: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
         
         <div className="split-container" style={{ display: 'flex', width: '100%', height: '100%', minHeight: '800px' }}>
@@ -169,43 +170,51 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Animation Container (Right) */}
-          <div style={{ flex: '1', position: 'relative', display: 'flex', alignItems: 'center' }}>
-            <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)' }}>
-              <CardSwap width={500} height={350} delay={4000} cardDistance={60} verticalDistance={70} pauseOnHover={false} skewAmount={6} easing="elastic">
-                
-                {/* Photo Card 1 */}
-                <Card>
-                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '0.9rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Reliable</span>
-                    </div>
+          {/* Animation Container (Right) - Perfectly Centered, No Edge Bleed */}
+          <div className="split-cards" style={{ flex: '1', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CardSwap width={450} height={300} delay={4000} cardDistance={45} verticalDistance={50} pauseOnHover={false} skewAmount={8} easing="elastic">
+              
+              {/* Photo Card 1 */}
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Reliable</span>
                   </div>
-                </Card>
+                </div>
+              </Card>
 
-                {/* Photo Card 2 */}
-                <Card>
-                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Smooth</span>
-                    </div>
+              {/* Photo Card 2 */}
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Smooth</span>
                   </div>
-                </Card>
+                </div>
+              </Card>
 
-                {/* Photo Card 3 */}
-                <Card>
-                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '0.9rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Customizable</span>
-                    </div>
+              {/* Photo Card 3 */}
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Customizable</span>
                   </div>
-                </Card>
+                </div>
+              </Card>
 
-              </CardSwap>
-            </div>
+              {/* Photo Card 4 (Creates Depth!) */}
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+                  <img src="https://images.unsplash.com/photo-1605335529061-68beaf5c92c8?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#EAB308' }}>✦</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Cinematic</span>
+                  </div>
+                </div>
+              </Card>
+
+            </CardSwap>
           </div>
         </div>
       </section>
