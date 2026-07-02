@@ -14,68 +14,22 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#000', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif', position: 'relative', overflowX: 'hidden' }}>
       
+      {/* Inline styles for standard video cards */}
       <style dangerouslySetInnerHTML={{__html: `
-        .standard-video-card {
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-          max-width: 1200px;
-          margin: 0 auto;
-          background-color: #050505;
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 40px;
-          overflow: hidden;
-          margin-bottom: 4rem;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        .standard-video-left {
-          flex: 0 0 45%;
-          position: relative;
-          border-right: 1px solid rgba(255,255,255,0.08);
-        }
-        .standard-video-right {
-          flex: 1;
-          padding: 4rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
+        .standard-video-card { display: flex; flex-direction: row; width: 100%; max-width: 1200px; margin: 0 auto; background-color: #050505; border: 1px solid rgba(255,255,255,0.08); border-radius: 40px; overflow: hidden; margin-bottom: 4rem; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .standard-video-left { flex: 0 0 45%; position: relative; border-right: 1px solid rgba(255,255,255,0.08); }
+        .standard-video-right { flex: 1; padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
         @media (max-width: 900px) {
-          .standard-video-card {
-            flex-direction: column;
-            border-radius: 24px;
-          }
-          .standard-video-left {
-            flex: 0 0 400px;
-            border-right: none;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-          }
-          .standard-video-right {
-            padding: 2rem;
-          }
-          .split-section {
-            flex-direction: column !important;
-            padding-top: 10vh !important;
-          }
-          .split-text {
-            padding: 0 2rem 4rem 2rem !important;
-            text-align: center;
-          }
-          .split-cards {
-            width: 100% !important;
-            justify-content: center !important;
-          }
+          .standard-video-card { flex-direction: column; border-radius: 24px; }
+          .standard-video-left { flex: 0 0 400px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+          .standard-video-right { padding: 2rem; }
+          .split-container { flex-direction: column; }
+          .split-text { padding-top: 4rem !important; align-items: center; text-align: center; }
         }
       `}} />
 
       {/* Navigation */}
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '1.2rem 2.5rem', backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
-      }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.2rem 2.5rem', backgroundColor: 'rgba(0, 0, 0, 0.4)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
         <div style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '0.15em' }}>THE CAT GUY</div>
         <div style={{ display: 'flex', gap: '3rem', fontSize: '0.9rem', fontWeight: 500 }}>
           <a href="#hero" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Home</a>
@@ -101,7 +55,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SOFTWARE SCROLL STACK SECTION */}
+      {/* SOFTWARE SCROLL STACK */}
       <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
         <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
           
@@ -161,24 +115,17 @@ export default function Home() {
         </ScrollStack>
       </section>
 
-      {/* STANDARD SCROLLING REELS SECTION */}
+      {/* STANDARD SCROLLING REELS */}
       <section id="projects" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingTop: '15vh', paddingBottom: '15vh' }}>
-        
         <div style={{ textAlign: 'center', paddingBottom: '8vh' }}>
-          <h2 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 900, letterSpacing: '-0.04em', margin: 0 }}>
-            Some of my projects.
-          </h2>
-          <p style={{ color: '#a1a1aa', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1rem', fontWeight: 500 }}>
-            Retention-focused edits. Proof in the pacing.
-          </p>
+          <h2 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 900, letterSpacing: '-0.04em', margin: 0 }}>Some of my projects.</h2>
+          <p style={{ color: '#a1a1aa', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1rem', fontWeight: 500 }}>Retention-focused edits. Proof in the pacing.</p>
         </div>
 
         <div style={{ padding: '0 2rem' }}>
           
           <div className="standard-video-card">
-            <div className="standard-video-left">
-              <video src="/reel1.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+            <div className="standard-video-left"><video src="/reel1.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
             <div className="standard-video-right">
               <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>High-Velocity Hooks</h3>
               <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Micro-cut editing designed specifically for the algorithm. Fast pacing and aggressive sound design.</p>
@@ -187,9 +134,7 @@ export default function Home() {
           </div>
 
           <div className="standard-video-card">
-            <div className="standard-video-left">
-              <video src="/reel2.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+            <div className="standard-video-left"><video src="/reel2.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
             <div className="standard-video-right">
               <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Cinematic Atmosphere</h3>
               <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Transforming raw footage into a moody, cinematic experience. Advanced color grading nodes mixed with environmental soundscapes.</p>
@@ -198,9 +143,7 @@ export default function Home() {
           </div>
 
           <div className="standard-video-card">
-            <div className="standard-video-left">
-              <video src="/reel3.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+            <div className="standard-video-left"><video src="/reel3.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
             <div className="standard-video-right">
               <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Seamless Transitions</h3>
               <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Fluid movement masking and precision keyframing to make every cut feel invisible and completely natural to the viewer.</p>
@@ -211,82 +154,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SKEWED SPLIT-SCREEN CARD SWAP (Photography) */}
-      <section id="photos" className="split-section" style={{ width: '100vw', minHeight: '100vh', backgroundColor: '#070707', position: 'relative', zIndex: 20, display: 'flex', flexDirection: 'row', overflow: 'hidden' }}>
+      {/* NEW: SKEWED CARD SWAP FOR PHOTOS */}
+      <section id="photos" style={{ width: '100vw', minHeight: '800px', backgroundColor: '#070707', position: 'relative', zIndex: 20, borderTop: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
         
-        {/* Left Side: Typography */}
-        <div className="split-text" style={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '8vw', zIndex: 30 }}>
-          <h2 style={{ fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, maxWidth: '600px', lineHeight: 1.1 }}>
-            Card stacks have never looked so good
-          </h2>
-          <p style={{ color: '#71717a', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1.5rem', fontWeight: 400 }}>
-            Just look at it go!
-          </p>
-        </div>
-
-        {/* Right Side: Skewed Cards */}
-        <div className="split-cards" style={{ flex: '1', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', pointerEvents: 'none' }}>
+        <div className="split-container" style={{ display: 'flex', width: '100%', height: '100%', minHeight: '800px' }}>
           
-          {/* Note: skewAmount={8} angles the cards, and pointerEvents: 'auto' turns interactivity back on for just the cards */}
-          <div style={{ position: 'relative', right: '-10%', pointerEvents: 'auto' }}>
-            <CardSwap width={600} height={400} delay={4000} cardDistance={50} verticalDistance={60} skewAmount={8}>
-              
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" alt="Photo 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  {/* Floating Apple-Style Badge */}
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontSize: '1rem', color: '#fff' }}>&lt;/&gt;</span>
-                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Reliable</span>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" alt="Photo 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  {/* Floating Apple-Style Badge */}
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#e5e5e5' }}></span>
-                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Smooth</span>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" alt="Photo 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  {/* Floating Apple-Style Badge */}
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontSize: '1rem', color: '#fff' }}>⚙</span>
-                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Customizable</span>
-                  </div>
-                </div>
-              </Card>
-              
-              {/* Added a 4th card to make the stack look deeper */}
-              <Card>
-                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  <img src="https://images.unsplash.com/photo-1605335529061-68beaf5c92c8?q=80&w=1000" alt="Photo 4" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontSize: '1rem', color: '#EAB308' }}>✦</span>
-                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Cinematic</span>
-                  </div>
-                </div>
-              </Card>
-
-            </CardSwap>
+          {/* Text Container (Left) */}
+          <div className="split-text" style={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '8vw', zIndex: 30 }}>
+            <h2 style={{ fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, maxWidth: '600px', lineHeight: 1.1 }}>
+              Card stacks have never looked so good
+            </h2>
+            <p style={{ color: '#71717a', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1.5rem', fontWeight: 400 }}>
+              Just look at it go!
+            </p>
           </div>
 
+          {/* Animation Container (Right) */}
+          <div style={{ flex: '1', position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)' }}>
+              <CardSwap width={500} height={350} delay={4000} cardDistance={60} verticalDistance={70} pauseOnHover={false} skewAmount={6} easing="elastic">
+                
+                {/* Photo Card 1 */}
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '0.9rem', color: '#fff' }}>&lt;/&gt;</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Reliable</span>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Photo Card 2 */}
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff' }}></span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Smooth</span>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Photo Card 3 */}
+                <Card>
+                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '0.9rem', color: '#fff' }}>⚙</span><span style={{ fontSize: '0.8rem', color: '#e5e5e5' }}>Customizable</span>
+                    </div>
+                  </div>
+                </Card>
+
+              </CardSwap>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer style={{ width: '100vw', padding: '10vh 0', backgroundColor: '#000', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', position: 'relative', zIndex: 20 }}>
         <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, marginBottom: '2rem' }}>Ready to cut?</h2>
-        <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'block', color: '#EAB308', fontSize: '1.2rem', textDecoration: 'none', marginBottom: '1rem', fontWeight: 600 }}>
-          @thecatguy.editz
-        </a>
+        <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'block', color: '#EAB308', fontSize: '1.2rem', textDecoration: 'none', marginBottom: '1rem', fontWeight: 600 }}>@thecatguy.editz</a>
       </footer>
 
     </main>
