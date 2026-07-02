@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#000', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif', position: 'relative', overflowX: 'hidden' }}>
       
-      {/* Bulletproof Apple-Style Glass Navigation */}
+      {/* Navigation */}
       <nav style={{
         position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -20,26 +20,17 @@ export default function Home() {
         backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
       }}>
-        <div style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '0.15em' }}>
-          THE CAT GUY
-        </div>
+        <div style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '0.15em' }}>THE CAT GUY</div>
         <div style={{ display: 'flex', gap: '3rem', fontSize: '0.9rem', fontWeight: 500 }}>
-          <a href="#hero" style={{ color: '#e5e5e5', textDecoration: 'none', transition: 'color 0.2s' }}>Home</a>
-          <a href="#stack" style={{ color: '#e5e5e5', textDecoration: 'none', transition: 'color 0.2s' }}>My Stack</a>
-          <a href="#projects" style={{ color: '#e5e5e5', textDecoration: 'none', transition: 'color 0.2s' }}>Projects</a>
-          <Link href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" style={{ color: '#EAB308', textDecoration: 'none' }}>
-            Portfolio ↗
-          </Link>
+          <a href="#hero" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Home</a>
+          <a href="#stack" style={{ color: '#e5e5e5', textDecoration: 'none' }}>My Stack</a>
+          <a href="#projects" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Projects</a>
+          <Link href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" style={{ color: '#EAB308', textDecoration: 'none' }}>Portfolio ↗</Link>
         </div>
-        <a href="mailto:kavin123kavinl123@gmail.com" style={{
-          backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem',
-          borderRadius: '9999px', fontSize: '0.9rem', fontWeight: 700, textDecoration: 'none'
-        }}>
-          Hire Me
-        </a>
+        <a href="mailto:kavin123kavinl123@gmail.com" style={{ backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '9999px', fontSize: '0.9rem', fontWeight: 700, textDecoration: 'none' }}>Hire Me</a>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section id="hero" style={{ position: 'relative', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, pointerEvents: 'none' }}>
           <SideRays speed={2.5} rayColor1="#EAB308" rayColor2="#96c8ff" intensity={3.0} spread={2.5} origin="top-right" />
@@ -54,12 +45,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SCROLL STACK SOFTWARE SECTION */}
-      <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
-        <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
+      {/* SOFTWARE STACK */}
+      {/* Notice: height: '100vh' is required for the original ReactBits native container scroll to work! */}
+      <section id="stack" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
+        <ScrollStack useWindowScroll={false} itemDistance={80} blurAmount={2}>
           
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #1a0b2e 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
+          <ScrollStackItem itemClassName="my-software-card">
+            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #1a0b2e 100%)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
               <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(153, 153, 255, 0.15)', filter: 'blur(100px)', top: '20%' }} />
               <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="After Effects" style={{ width: '100px', height: '100px', marginBottom: '2rem', zIndex: 10 }} />
               <div style={{ position: 'relative', zIndex: 10 }}>
@@ -71,8 +63,8 @@ export default function Home() {
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #2e0f0b 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
+          <ScrollStackItem itemClassName="my-software-card">
+            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #2e0f0b 100%)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
               <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(239, 68, 68, 0.15)', filter: 'blur(100px)', top: '20%' }} />
               <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/DaVinci_Resolve_Studio.png" alt="DaVinci Resolve" style={{ width: '100px', height: '100px', marginBottom: '2rem', zIndex: 10 }} />
               <div style={{ position: 'relative', zIndex: 10 }}>
@@ -84,8 +76,8 @@ export default function Home() {
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #0b1a2e 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
+          <ScrollStackItem itemClassName="my-software-card">
+            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #0b1a2e 100%)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
               <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(59, 130, 246, 0.15)', filter: 'blur(100px)', top: '20%' }} />
               <div style={{ position: 'relative', zIndex: 10 }}>
                 <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 900, margin: 0, color: '#fff', letterSpacing: '-0.03em', textShadow: '0 4px 20px rgba(59, 130, 246, 0.3)' }}>Apple Motion</h2>
@@ -96,8 +88,8 @@ export default function Home() {
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #2e0b2a 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
+          <ScrollStackItem itemClassName="my-software-card">
+            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #2e0b2a 100%)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
               <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(168, 85, 247, 0.15)', filter: 'blur(100px)', top: '20%' }} />
               <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro" style={{ width: '100px', height: '100px', marginBottom: '2rem', zIndex: 10 }} />
               <div style={{ position: 'relative', zIndex: 10 }}>
@@ -109,8 +101,8 @@ export default function Home() {
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #112222 100%)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
+          <ScrollStackItem itemClassName="my-software-card">
+            <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #050505 40%, #112222 100%)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center' }}>
               <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(255, 255, 255, 0.1)', filter: 'blur(100px)', top: '20%' }} />
               <div style={{ position: 'relative', zIndex: 10 }}>
                 <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 900, margin: 0, color: '#fff', letterSpacing: '-0.03em', textShadow: '0 4px 20px rgba(255, 255, 255, 0.2)' }}>CapCut</h2>
@@ -124,118 +116,82 @@ export default function Home() {
         </ScrollStack>
       </section>
 
-      {/* NEW PROJECTS & REELS SECTION */}
-      <section id="projects" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingTop: '10vh' }}>
+      {/* REELS SECTION */}
+      {/* Notice: blurAmount={0} removes the heavy filter effect on videos so they don't glitch! */}
+      <section id="projects" style={{ width: '100vw', height: '100vh', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
         
-        <div style={{ textAlign: 'center', paddingBottom: '10vh' }}>
+        <div style={{ position: 'absolute', top: '10%', left: 0, width: '100%', textAlign: 'center', zIndex: 30, pointerEvents: 'none' }}>
           <h2 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 900, letterSpacing: '-0.04em', margin: 0 }}>
             Some of my projects.
           </h2>
-          <p style={{ color: '#a1a1aa', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1rem', fontWeight: 500 }}>
+          <p style={{ color: '#a1a1aa', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '0.5rem', fontWeight: 500 }}>
             Retention-focused edits. Proof in the pacing.
           </p>
         </div>
 
-        {/* Removed blurAmount to prevent video glitching on scroll */}
-        <ScrollStack useWindowScroll={true} itemDistance={100} blurAmount={0}>
+        <ScrollStack useWindowScroll={false} itemDistance={100} blurAmount={0}>
           
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
-              <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                {/* Added hardware acceleration styles directly to video */}
-                <video src="/reel1.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
+          <ScrollStackItem itemClassName="my-video-card">
+            <div style={{ width: '100%', height: '100%', backgroundColor: '#050505', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <div style={{ flex: '0 0 45%', height: '100%', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+                <video src="/reel1.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>High-Velocity Hooks</h3>
-                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Micro-cut editing designed specifically for the algorithm. Fast pacing, aggressive sound design, and relentless retention.
-                </p>
-                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
-                  display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
-                }}>
-                  View on Instagram ↗
-                </a>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Micro-cut editing designed specifically for the algorithm. Fast pacing, aggressive sound design, and relentless retention.</p>
+                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>View on Instagram ↗</a>
               </div>
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
-              <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel2.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
+          <ScrollStackItem itemClassName="my-video-card">
+            <div style={{ width: '100%', height: '100%', backgroundColor: '#050505', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <div style={{ flex: '0 0 45%', height: '100%', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+                <video src="/reel2.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Cinematic Atmosphere</h3>
-                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Transforming raw footage into a moody, cinematic experience. Advanced color grading nodes mixed with environmental soundscapes.
-                </p>
-                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
-                  display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
-                }}>
-                  View on Instagram ↗
-                </a>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Transforming raw footage into a moody, cinematic experience. Advanced color grading nodes mixed with environmental soundscapes.</p>
+                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>View on Instagram ↗</a>
               </div>
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
-              <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel3.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
+          <ScrollStackItem itemClassName="my-video-card">
+            <div style={{ width: '100%', height: '100%', backgroundColor: '#050505', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <div style={{ flex: '0 0 45%', height: '100%', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+                <video src="/reel3.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Seamless Transitions</h3>
-                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Fluid movement masking and precision keyframing to make every cut feel invisible and completely natural to the viewer.
-                </p>
-                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
-                  display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
-                }}>
-                  View on Instagram ↗
-                </a>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Fluid movement masking and precision keyframing to make every cut feel invisible and completely natural to the viewer.</p>
+                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>View on Instagram ↗</a>
               </div>
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
-              <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel4.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
+          <ScrollStackItem itemClassName="my-video-card">
+            <div style={{ width: '100%', height: '100%', backgroundColor: '#050505', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <div style={{ flex: '0 0 45%', height: '100%', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+                <video src="/reel4.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Dynamic Sound Design</h3>
-                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Audio dictates the emotion. Every whoosh, riser, and impact is meticulously mixed to build tension exactly when needed.
-                </p>
-                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
-                  display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
-                }}>
-                  View on Instagram ↗
-                </a>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Audio dictates the emotion. Every whoosh, riser, and impact is meticulously mixed to build tension exactly when needed.</p>
+                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>View on Instagram ↗</a>
               </div>
             </div>
           </ScrollStackItem>
 
-          <ScrollStackItem>
-            <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: '#050505', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
-              <div style={{ flex: '0 0 45%', height: '100%', position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                <video src="/reel5.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'translate3d(0,0,0)', WebkitBackfaceVisibility: 'hidden' }} />
+          <ScrollStackItem itemClassName="my-video-card">
+            <div style={{ width: '100%', height: '100%', backgroundColor: '#050505', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <div style={{ flex: '0 0 45%', height: '100%', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+                <video src="/reel5.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ flex: '1', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', letterSpacing: '-0.03em' }}>Viral Pacing</h3>
-                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  The art of holding attention. Removing every dead frame so the viewer stays locked in until the loop repeats.
-                </p>
-                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ 
-                  display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', 
-                  backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start'
-                }}>
-                  View on Instagram ↗
-                </a>
+                <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>The art of holding attention. Removing every dead frame so the viewer stays locked in until the loop repeats.</p>
+                <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>View on Instagram ↗</a>
               </div>
             </div>
           </ScrollStackItem>
@@ -246,9 +202,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer style={{ width: '100vw', padding: '10vh 0', backgroundColor: '#000', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', position: 'relative', zIndex: 20 }}>
         <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, marginBottom: '2rem' }}>Ready to cut?</h2>
-        <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'block', color: '#EAB308', fontSize: '1.2rem', textDecoration: 'none', marginBottom: '1rem', fontWeight: 600 }}>
-          @thecatguy.editz
-        </a>
+        <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'block', color: '#EAB308', fontSize: '1.2rem', textDecoration: 'none', marginBottom: '1rem', fontWeight: 600 }}>@thecatguy.editz</a>
       </footer>
 
     </main>
