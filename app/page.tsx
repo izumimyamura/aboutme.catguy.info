@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#000', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif', position: 'relative', overflowX: 'hidden' }}>
       
-      {/* Inline CSS for responsive standard video cards */}
       <style dangerouslySetInnerHTML={{__html: `
         .standard-video-card {
           display: flex;
@@ -53,6 +52,18 @@ export default function Home() {
           }
           .standard-video-right {
             padding: 2rem;
+          }
+          .split-section {
+            flex-direction: column !important;
+            padding-top: 10vh !important;
+          }
+          .split-text {
+            padding: 0 2rem 4rem 2rem !important;
+            text-align: center;
+          }
+          .split-cards {
+            width: 100% !important;
+            justify-content: center !important;
           }
         }
       `}} />
@@ -150,7 +161,7 @@ export default function Home() {
         </ScrollStack>
       </section>
 
-      {/* STANDARD SCROLLING REELS SECTION (No effects, pure smooth HTML) */}
+      {/* STANDARD SCROLLING REELS SECTION */}
       <section id="projects" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingTop: '15vh', paddingBottom: '15vh' }}>
         
         <div style={{ textAlign: 'center', paddingBottom: '8vh' }}>
@@ -162,7 +173,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Standard Video Container - No Scroll Hijacking */}
         <div style={{ padding: '0 2rem' }}>
           
           <div className="standard-video-card">
@@ -201,47 +211,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEW CARD SWAP PHOTOS SECTION */}
-      <section id="photos" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingBottom: '10vh' }}>
+      {/* SKEWED SPLIT-SCREEN CARD SWAP (Photography) */}
+      <section id="photos" className="split-section" style={{ width: '100vw', minHeight: '100vh', backgroundColor: '#070707', position: 'relative', zIndex: 20, display: 'flex', flexDirection: 'row', overflow: 'hidden' }}>
         
-        <div style={{ textAlign: 'center', paddingBottom: '8vh' }}>
-          <h2 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 900, letterSpacing: '-0.04em', margin: 0 }}>
-            Through the lens.
+        {/* Left Side: Typography */}
+        <div className="split-text" style={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '8vw', zIndex: 30 }}>
+          <h2 style={{ fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, maxWidth: '600px', lineHeight: 1.1 }}>
+            Card stacks have never looked so good
           </h2>
-          <p style={{ color: '#a1a1aa', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1rem', fontWeight: 500 }}>
-            Moments captured outside the timeline.
+          <p style={{ color: '#71717a', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1.5rem', fontWeight: 400 }}>
+            Just look at it go!
           </p>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', position: 'relative', height: '550px' }}>
-          {/* You can replace these placeholder image links with your own photos later! */}
-          <CardSwap width={800} height={500} delay={4000} cardDistance={30} verticalDistance={40} skewAmount={0}>
-            
-            <Card>
-              <img 
-                src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" 
-                alt="Photography 1" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} 
-              />
-            </Card>
-            
-            <Card>
-              <img 
-                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" 
-                alt="Photography 2" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} 
-              />
-            </Card>
+        {/* Right Side: Skewed Cards */}
+        <div className="split-cards" style={{ flex: '1', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', pointerEvents: 'none' }}>
+          
+          {/* Note: skewAmount={8} angles the cards, and pointerEvents: 'auto' turns interactivity back on for just the cards */}
+          <div style={{ position: 'relative', right: '-10%', pointerEvents: 'auto' }}>
+            <CardSwap width={600} height={400} delay={4000} cardDistance={50} verticalDistance={60} skewAmount={8}>
+              
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" alt="Photo 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {/* Floating Apple-Style Badge */}
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '1rem', color: '#fff' }}>&lt;/&gt;</span>
+                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Reliable</span>
+                  </div>
+                </div>
+              </Card>
 
-            <Card>
-              <img 
-                src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" 
-                alt="Photography 3" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} 
-              />
-            </Card>
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" alt="Photo 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {/* Floating Apple-Style Badge */}
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#e5e5e5' }}></span>
+                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Smooth</span>
+                  </div>
+                </div>
+              </Card>
 
-          </CardSwap>
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" alt="Photo 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {/* Floating Apple-Style Badge */}
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '1rem', color: '#fff' }}>⚙</span>
+                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Customizable</span>
+                  </div>
+                </div>
+              </Card>
+              
+              {/* Added a 4th card to make the stack look deeper */}
+              <Card>
+                <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <img src="https://images.unsplash.com/photo-1605335529061-68beaf5c92c8?q=80&w=1000" alt="Photo 4" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '1rem', color: '#EAB308' }}>✦</span>
+                    <span style={{ fontSize: '0.9rem', color: '#e5e5e5', fontWeight: 500 }}>Cinematic</span>
+                  </div>
+                </div>
+              </Card>
+
+            </CardSwap>
+          </div>
+
         </div>
       </section>
 
