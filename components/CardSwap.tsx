@@ -29,11 +29,11 @@ const placeNow = (el: any, slot: any, skew: number) =>
   });
 
 const CardSwap = ({
-  width = 500,
+  width = 600,
   height = 400,
   cardDistance = 60,
   verticalDistance = 70,
-  delay = 5000,
+  delay = 4000,
   pauseOnHover = false,
   onCardClick,
   skewAmount = 6,
@@ -42,22 +42,8 @@ const CardSwap = ({
 }: any) => {
   const config =
     easing === 'elastic'
-      ? {
-          ease: 'elastic.out(0.6,0.9)',
-          durDrop: 2,
-          durMove: 2,
-          durReturn: 2,
-          promoteOverlap: 0.9,
-          returnDelay: 0.05
-        }
-      : {
-          ease: 'power1.inOut',
-          durDrop: 0.8,
-          durMove: 0.8,
-          durReturn: 0.8,
-          promoteOverlap: 0.45,
-          returnDelay: 0.2
-        };
+      ? { ease: 'elastic.out(0.6,0.9)', durDrop: 2, durMove: 2, durReturn: 2, promoteOverlap: 0.9, returnDelay: 0.05 }
+      : { ease: 'power1.inOut', durDrop: 0.8, durMove: 0.8, durReturn: 0.8, promoteOverlap: 0.45, returnDelay: 0.2 };
 
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(() => childArr.map(() => React.createRef<HTMLDivElement>()), [childArr.length]);
@@ -81,7 +67,6 @@ const CardSwap = ({
 
       tl.to(elFront, { y: '+=500', duration: config.durDrop, ease: config.ease });
       tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
-      
       rest.forEach((idx, i) => {
         const el = refs[idx].current;
         const slot = makeSlot(i, cardDistance, verticalDistance, refs.length);
@@ -96,7 +81,7 @@ const CardSwap = ({
       tl.call(() => { order.current = [...rest, front]; });
     };
 
-    swap();
+    swap(); // Call immediately so the first animation triggers
     intervalRef.current = window.setInterval(swap, delay);
 
     if (pauseOnHover) {
@@ -110,9 +95,14 @@ const CardSwap = ({
         node.removeEventListener('mouseenter', pause);
         node.removeEventListener('mouseleave', resume);
         clearInterval(intervalRef.current);
+        tlRef.current?.kill(); // CRITICAL FIX: Kills GSAP on remount
       };
     }
-    return () => clearInterval(intervalRef.current);
+    
+    return () => {
+      clearInterval(intervalRef.current);
+      tlRef.current?.kill(); // CRITICAL FIX: Kills GSAP on remount
+    };
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
 
   const rendered = childArr.map((child: any, i) =>
@@ -121,10 +111,7 @@ const CardSwap = ({
           key: i,
           ref: refs[i],
           style: { width, height, ...(child.props.style ?? {}) },
-          onClick: (e: any) => {
-            child.props.onClick?.(e);
-            onCardClick?.(i);
-          }
+          onClick: (e: any) => { child.props.onClick?.(e); onCardClick?.(i); }
         } as any)
       : child
   );
