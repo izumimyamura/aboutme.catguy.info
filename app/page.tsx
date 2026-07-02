@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-// Safely load all 3D/Animation components
+// Safely load 3D/Animation components
 const SideRays = dynamic(() => import('../components/SideRays'), { ssr: false });
 const BlurText = dynamic(() => import('../components/BlurText'), { ssr: false });
 const ScrollStack = dynamic(() => import('../components/ScrollStack'), { ssr: false });
@@ -14,6 +14,49 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#000', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif', position: 'relative', overflowX: 'hidden' }}>
       
+      {/* Inline CSS for responsive standard video cards */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .standard-video-card {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          background-color: #050505;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 40px;
+          overflow: hidden;
+          margin-bottom: 4rem;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .standard-video-left {
+          flex: 0 0 45%;
+          position: relative;
+          border-right: 1px solid rgba(255,255,255,0.08);
+        }
+        .standard-video-right {
+          flex: 1;
+          padding: 4rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        @media (max-width: 900px) {
+          .standard-video-card {
+            flex-direction: column;
+            border-radius: 24px;
+          }
+          .standard-video-left {
+            flex: 0 0 400px;
+            border-right: none;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+          }
+          .standard-video-right {
+            padding: 2rem;
+          }
+        }
+      `}} />
+
       {/* Navigation */}
       <nav style={{
         position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50,
@@ -27,7 +70,7 @@ export default function Home() {
           <a href="#hero" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Home</a>
           <a href="#stack" style={{ color: '#e5e5e5', textDecoration: 'none' }}>My Stack</a>
           <a href="#projects" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Projects</a>
-          <Link href="https://kavin-portfolio-v2-4mowan065-catguy.vercel.app/#hero" target="_blank" style={{ color: '#EAB308', textDecoration: 'none' }}>Portfolio ↗</Link>
+          <a href="#photos" style={{ color: '#e5e5e5', textDecoration: 'none' }}>Photography</a>
         </div>
         <a href="mailto:kavin123kavinl123@gmail.com" style={{ backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '9999px', fontSize: '0.9rem', fontWeight: 700, textDecoration: 'none' }}>Hire Me</a>
       </nav>
@@ -47,7 +90,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SOFTWARE SCROLL STACK */}
+      {/* SOFTWARE SCROLL STACK SECTION */}
       <section id="stack" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20 }}>
         <ScrollStack useWindowScroll={true} itemDistance={80} blurAmount={2}>
           
@@ -107,10 +150,10 @@ export default function Home() {
         </ScrollStack>
       </section>
 
-      {/* NEW CARD SWAP PROJECTS SECTION */}
-      <section id="projects" style={{ width: '100vw', minHeight: '120vh', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingTop: '10vh', overflow: 'hidden' }}>
+      {/* STANDARD SCROLLING REELS SECTION (No effects, pure smooth HTML) */}
+      <section id="projects" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingTop: '15vh', paddingBottom: '15vh' }}>
         
-        <div style={{ textAlign: 'center', paddingBottom: '5vh' }}>
+        <div style={{ textAlign: 'center', paddingBottom: '8vh' }}>
           <h2 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 900, letterSpacing: '-0.04em', margin: 0 }}>
             Some of my projects.
           </h2>
@@ -119,78 +162,83 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Card Swap Engine container */}
-        <div style={{ height: '500px', width: '100%', position: 'relative', display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-          <CardSwap width={900} height={450} delay={4000} cardDistance={40} verticalDistance={50}>
+        {/* Standard Video Container - No Scroll Hijacking */}
+        <div style={{ padding: '0 2rem' }}>
+          
+          <div className="standard-video-card">
+            <div className="standard-video-left">
+              <video src="/reel1.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div className="standard-video-right">
+              <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>High-Velocity Hooks</h3>
+              <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Micro-cut editing designed specifically for the algorithm. Fast pacing and aggressive sound design.</p>
+              <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch on Instagram ↗</a>
+            </div>
+          </div>
+
+          <div className="standard-video-card">
+            <div className="standard-video-left">
+              <video src="/reel2.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div className="standard-video-right">
+              <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Cinematic Atmosphere</h3>
+              <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Transforming raw footage into a moody, cinematic experience. Advanced color grading nodes mixed with environmental soundscapes.</p>
+              <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch on Instagram ↗</a>
+            </div>
+          </div>
+
+          <div className="standard-video-card">
+            <div className="standard-video-left">
+              <video src="/reel3.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div className="standard-video-right">
+              <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Seamless Transitions</h3>
+              <p style={{ color: '#a1a1aa', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '2rem' }}>Fluid movement masking and precision keyframing to make every cut feel invisible and completely natural to the viewer.</p>
+              <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '0.8rem 2rem', borderRadius: '999px', fontWeight: 600, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch on Instagram ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* NEW CARD SWAP PHOTOS SECTION */}
+      <section id="photos" style={{ width: '100vw', backgroundColor: '#000', position: 'relative', zIndex: 20, paddingBottom: '10vh' }}>
+        
+        <div style={{ textAlign: 'center', paddingBottom: '8vh' }}>
+          <h2 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 900, letterSpacing: '-0.04em', margin: 0 }}>
+            Through the lens.
+          </h2>
+          <p style={{ color: '#a1a1aa', fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', marginTop: '1rem', fontWeight: 500 }}>
+            Moments captured outside the timeline.
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', position: 'relative', height: '550px' }}>
+          {/* You can replace these placeholder image links with your own photos later! */}
+          <CardSwap width={800} height={500} delay={4000} cardDistance={30} verticalDistance={40} skewAmount={0}>
             
-            {/* Reel 1 */}
             <Card>
-              <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-                <div style={{ flex: '0 0 45%', height: '100%', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                  <video src="/reel1.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ flex: 1, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>High-Velocity Hooks</h3>
-                  <p style={{ color: '#a1a1aa', fontSize: '1.1rem', marginBottom: '2rem' }}>Micro-cut editing designed specifically for the algorithm. Fast pacing and aggressive sound design.</p>
-                  <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '999px', fontWeight: 700, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch ↗</a>
-                </div>
-              </div>
+              <img 
+                src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" 
+                alt="Photography 1" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} 
+              />
+            </Card>
+            
+            <Card>
+              <img 
+                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" 
+                alt="Photography 2" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} 
+              />
             </Card>
 
-            {/* Reel 2 */}
             <Card>
-              <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-                <div style={{ flex: '0 0 45%', height: '100%', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                  <video src="/reel2.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ flex: 1, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Cinematic Atmosphere</h3>
-                  <p style={{ color: '#a1a1aa', fontSize: '1.1rem', marginBottom: '2rem' }}>Transforming raw footage into a moody, cinematic experience with advanced color grading nodes.</p>
-                  <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '999px', fontWeight: 700, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch ↗</a>
-                </div>
-              </div>
-            </Card>
-
-            {/* Reel 3 */}
-            <Card>
-              <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-                <div style={{ flex: '0 0 45%', height: '100%', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                  <video src="/reel3.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ flex: 1, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Seamless Transitions</h3>
-                  <p style={{ color: '#a1a1aa', fontSize: '1.1rem', marginBottom: '2rem' }}>Fluid movement masking and precision keyframing to make every cut feel completely invisible.</p>
-                  <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '999px', fontWeight: 700, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch ↗</a>
-                </div>
-              </div>
-            </Card>
-
-            {/* Reel 4 */}
-            <Card>
-              <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-                <div style={{ flex: '0 0 45%', height: '100%', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                  <video src="/reel4.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ flex: 1, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Dynamic Audio</h3>
-                  <p style={{ color: '#a1a1aa', fontSize: '1.1rem', marginBottom: '2rem' }}>Every whoosh, riser, and impact is meticulously mixed to build tension exactly when needed.</p>
-                  <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '999px', fontWeight: 700, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch ↗</a>
-                </div>
-              </div>
-            </Card>
-
-            {/* Reel 5 */}
-            <Card>
-              <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-                <div style={{ flex: '0 0 45%', height: '100%', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                  <video src="/reel5.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ flex: 1, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <h3 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 1rem 0' }}>Viral Pacing</h3>
-                  <p style={{ color: '#a1a1aa', fontSize: '1.1rem', marginBottom: '2rem' }}>Removing every dead frame so the viewer stays locked in until the loop flawlessly repeats.</p>
-                  <a href="https://www.instagram.com/thecatguy.editz/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', backgroundColor: '#fff', color: '#000', padding: '0.6rem 1.5rem', borderRadius: '999px', fontWeight: 700, textDecoration: 'none', alignSelf: 'flex-start' }}>Watch ↗</a>
-                </div>
-              </div>
+              <img 
+                src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" 
+                alt="Photography 3" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} 
+              />
             </Card>
 
           </CardSwap>
