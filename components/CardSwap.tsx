@@ -30,14 +30,14 @@ const placeNow = (el: any, slot: any, skew: number) =>
 
 const CardSwap = ({
   width = 500,
-  height = 350,
+  height = 400,
   cardDistance = 60,
   verticalDistance = 70,
-  delay = 4000,
+  delay = 5000,
   pauseOnHover = false,
   onCardClick,
   skewAmount = 6,
-  easing = 'power1.inOut',
+  easing = 'elastic',
   children
 }: any) => {
   const config =
@@ -47,16 +47,20 @@ const CardSwap = ({
 
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(() => childArr.map(() => React.createRef<HTMLDivElement>()), [childArr.length]);
-  const order = useRef(Array.from({ length: childArr.length }, (_, i) => i));
+  const order = useRef<number[]>([]);
 
+  const tlRef = useRef<any>(null);
   const intervalRef = useRef<any>();
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // CRITICAL FIX: Reset the order array on mount so Next.js strict mode doesn't break the refs
+    order.current = Array.from({ length: refs.length }, (_, i) => i);
+
     const total = refs.length;
     if (total === 0) return;
 
-    // CRITICAL FIX: Wrap in gsap.context to prevent React double-mount freezing
+    // Wrap in gsap.context for easy cleanup
     let ctx = gsap.context(() => {
       refs.forEach((r, i) => {
         if (r.current) placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
@@ -64,11 +68,14 @@ const CardSwap = ({
 
       const swap = () => {
         if (order.current.length < 2) return;
+
         const [front, ...rest] = order.current;
         const elFront = refs[front].current;
         if (!elFront) return;
 
         const tl = gsap.timeline();
+        tlRef.current = tl;
+
         tl.to(elFront, { y: '+=500', duration: config.durDrop, ease: config.ease });
         tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
         
@@ -84,24 +91,27 @@ const CardSwap = ({
         tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
         tl.call(() => { gsap.set(elFront, { zIndex: backSlot.zIndex }); }, undefined, 'return');
         tl.to(elFront, { x: backSlot.x, y: backSlot.y, z: backSlot.z, duration: config.durReturn, ease: config.ease }, 'return');
+        
         tl.call(() => { order.current = [...rest, front]; });
       };
 
+      swap();
       intervalRef.current = window.setInterval(swap, delay);
 
       if (pauseOnHover && container.current) {
-        const pause = () => { gsap.globalTimeline.pause(); clearInterval(intervalRef.current); };
-        const resume = () => { gsap.globalTimeline.play(); intervalRef.current = window.setInterval(swap, delay); };
-        container.current.addEventListener('mouseenter', pause);
-        container.current.addEventListener('mouseleave', resume);
+        const node = container.current;
+        const pause = () => { tlRef.current?.pause(); clearInterval(intervalRef.current); };
+        const resume = () => { tlRef.current?.play(); intervalRef.current = window.setInterval(swap, delay); };
+        node.addEventListener('mouseenter', pause);
+        node.addEventListener('mouseleave', resume);
       }
     }, container);
 
-    // CRITICAL FIX: Revert the context on unmount so animations don't duplicate
     return () => {
       clearInterval(intervalRef.current);
-      ctx.revert();
+      ctx.revert(); // Restores elements so double-mounts don't crash the timeline
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
 
   const rendered = childArr.map((child: any, i) =>
