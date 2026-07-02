@@ -1,9 +1,9 @@
 .card-swap-container {
   position: relative;
-  perspective: 1200px;
+  perspective: 1000px;
   overflow: visible;
   /* Centered safely, no translations pushing it off-screen */
-  margin: 0 auto;
+  margin: 0 auto; 
 }
 
 .card {
@@ -17,7 +17,8 @@
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  box-shadow: -20px 20px 40px rgba(0,0,0,0.8);
+  /* Deep shadow to make overlapping cards pop */
+  box-shadow: -15px 15px 30px rgba(0,0,0,0.8);
 }
 
 @media (max-width: 900px) {
