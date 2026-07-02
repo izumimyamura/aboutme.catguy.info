@@ -1,38 +1,33 @@
 .card-swap-container {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  /* Push slightly right and down, scaling up the perspective */
-  transform: translate(15%, 10%);
-  transform-origin: bottom right;
+  position: relative;
   perspective: 1200px;
   overflow: visible;
-  pointer-events: none; /* Let clicks pass through container */
+  /* Centered safely, no translations pushing it off-screen */
+  margin: 0 auto;
 }
 
 .card {
   position: absolute;
   top: 50%;
   left: 50%;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Soft glass border */
-  background: #000;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #050505;
   transform-style: preserve-3d;
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  pointer-events: auto; /* Re-enable clicks on the cards themselves */
-  box-shadow: -20px 20px 40px rgba(0,0,0,0.8); /* Depth shadow */
+  box-shadow: -20px 20px 40px rgba(0,0,0,0.8);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .card-swap-container {
-    transform: scale(0.75) translate(25%, 25%);
+    transform: scale(0.8);
   }
 }
 
 @media (max-width: 480px) {
   .card-swap-container {
-    transform: scale(0.55) translate(25%, 25%);
+    transform: scale(0.6);
   }
 }
